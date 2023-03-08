@@ -29,7 +29,7 @@ $ sudo make install
 ```
 
 共有ライブラリへのパスを通す
-`libyaml-cpp.so.0.X` が `/usr/local/bin` にある。
+`libyaml-cpp.so.0.X` が `/usr/local/lib` にある。
 
 `.bashrc` にパスを追加する
 ```
