@@ -13,5 +13,6 @@ file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 find_package(yaml-cpp)
 include_directories(${YAML_CPP_INCLUDE_DIRS})
 
-add_executable(raytrace main.cc ${headers} ${sources})
+#add_executable(raytrace main.cc ${headers} ${sources})
+add_executable(raytrace distance.cc ${headers} ${sources})
 target_link_libraries(raytrace PUBLIC ${ROOT_LIBRARIES} ${ROOT_EXE_LINKER_FLAGS} ${YAML_CPP_LIBRARIES})
