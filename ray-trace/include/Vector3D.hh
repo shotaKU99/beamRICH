@@ -25,6 +25,8 @@ public:
     };
 
     // Vector - Vector operators
+    Vector3D operator=(const Vector3D &right);
+
     Vector3D operator+(const Vector3D &right);
     Vector3D operator-(const Vector3D &right);
     Vector3D operator-();

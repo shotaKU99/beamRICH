@@ -1,20 +1,20 @@
 config:
   "geant4_sim1":
-    input_file: ../root/AngleReconstruction_pro.root
-    output_file: ../root/CherenkovAngle_pro4.root
-    Emit:
-      x: 0.0
-      y: 0.0
-      z: 40.0
+    #input_file: ../root/AngleReconstruction_K.root
+    output_file: ../root/mirrorAngle_test_pro.root
+    #Emit:
+    #  x: 0.0
+    #  y: 0.0
+    #  z: 40.0
     n_perp:
       x: 0.0
       y: 0.0
       z: 1.0
-    Mirror:
-      x0: 0.0
-      y0: 0.0
-      z0: -150.0
-      Radius: 300.0
+    #Mirror:
+    #  x0: 0.0
+    #  y0: 0.0
+    #  z0: -150.0
+    #  Radius: 300.0
     RIndex:
       Aero: 1.021
       Air: 1.000273 

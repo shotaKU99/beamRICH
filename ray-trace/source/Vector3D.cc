@@ -4,6 +4,11 @@ Vector3D::Vector3D() : x(1.0), y(0.0), z(0.0) {}
 
 Vector3D::Vector3D(double _x, double _y, double _z) : x(_x), y(_y), z(_z) {}
 
+Vector3D Vector3D::operator=(const Vector3D &right){
+    return Vector3D(right.x, right.y, right.z);
+}
+
+
 Vector3D Vector3D::operator+(const Vector3D &right){
     Vector3D v;
     v.x = x + right.x;
@@ -143,7 +148,8 @@ Vector3D Vector3D::refraction(const Vector3D& incident, const Vector3D& nperp, c
     double costheta = std::abs(dot(inci_norm, nperp_norm));
     double k = 1.0 - std::pow(n1/n2, 2.0)*(1.0 - std::pow(costheta, 2.0));
     if(k<0.0){
-        return Vector3D(0.0, 0.0, 0.0);
+        std::cout << "Refraction error occured" << std::endl;
+        return Vector3D(0.0, 0.0, 1.0);
     }else{
         return n1*inci_norm/n2 + (std::sqrt(k)- n1*costheta/n2)*nperp_norm;
     }
