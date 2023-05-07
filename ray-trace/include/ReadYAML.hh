@@ -53,6 +53,13 @@ struct Beam_t {
     Z_t z;
 };
 
+struct BoxSize_t
+{
+  double x;
+  double y;
+  double z;
+};
+
 struct Center_t
 {
   double x;
@@ -70,6 +77,7 @@ struct RotAngle_t
 
 struct Detector_t
 {
+  BoxSize_t size;
   Center_t center;
   RotAngle_t rotangle;
 };
@@ -80,12 +88,6 @@ struct Mirror_t
   double radius;
 };
 
-struct BoxSize_t
-{
-  double x;
-  double y;
-  double z;
-};
 
 struct Radiator_t
 {
@@ -112,12 +114,24 @@ private:
     std::vector<std::string> keylist;
     std::string settingname;
 
+    int Number_MPPC;
+    std::vector<double> mppc_pos_x;// = std::vector<double>(50, -2222.0);
+    std::vector<double> mppc_pos_y;// = std::vector<double>(50, -2222.0);
+    std::vector<double> mppc_pos_z;// = std::vector<double>(50, -2222.0);
+    std::vector<double> mppc_zrot;
+    std::vector<double> mppc_darkcurrent;
+
 public:
     ReadYAML(std::string fpath);
-
     std::string GetConfigFile() const {return configfilename;};
-
     configuration_t GetConfigration();
+
+    int GetNumMPPC() {return Number_MPPC;};
+    std::vector<double> GetMppcPosX() {return mppc_pos_x;};
+    std::vector<double> GetMppcPosY() {return mppc_pos_y;};
+    std::vector<double> GetMppcPosZ() {return mppc_pos_z;};
+    std::vector<double> GetMppcZRot() {return mppc_zrot;};
+
 };
 
 

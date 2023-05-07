@@ -2,6 +2,7 @@
 #include "Vector3D.hh"
 #include "ExpConfig.hh"
 #include "ReadYAML.hh"
+#include "Ch2Pos.hh"
 
 #include <vector>
 #include <algorithm>
@@ -189,6 +190,8 @@ int main(int argc, char** argv){
     std::vector<Double_t>* yVD3 = 0;
     std::vector<Double_t>* zVD3 = 0;
     std::vector<Double_t>* qeffVD3 = 0;
+    std::vector<Double_t>* hitChVD3 = 0;
+    std::vector<Double_t>* parentIdVD3 = 0;
 
     inputTree -> SetBranchAddress("xVD1", &xVD1);
     inputTree -> SetBranchAddress("yVD1", &yVD1);
@@ -200,6 +203,8 @@ int main(int argc, char** argv){
     inputTree -> SetBranchAddress("yVD3", &yVD3);
     inputTree -> SetBranchAddress("zVD3", &zVD3);
     inputTree -> SetBranchAddress("qeffVD3", &qeffVD3);
+    inputTree -> SetBranchAddress("hitChVD3", &hitChVD3);
+    inputTree -> SetBranchAddress("parentIdVD3", &parentIdVD3);
 
     /*    
     double xE = 0.0; //configuration.emit.x;
@@ -243,6 +248,10 @@ int main(int argc, char** argv){
     double beamoffz = configuration.beam.z.center;
     double rasterz = configuration.beam.z.width;
 
+    double detec_sizeX = configuration.detector.size.x;
+    double detec_sizeY = configuration.detector.size.y;
+    double detec_sizeZ = configuration.detector.size.z;
+
     double detec_centerX = configuration.detector.center.x;
     double detec_centerY = configuration.detector.center.y;
     double detec_centerZ = configuration.detector.center.z;
@@ -262,6 +271,20 @@ int main(int argc, char** argv){
     double radiator_sizeX = configuration.radiator.size.x;
     double radiator_sizeY = configuration.radiator.size.y;
     double radiator_sizeZ = configuration.radiator.size.z;
+
+    int NumMPPC = readyaml.GetNumMPPC();
+    std::vector<double> pos_X_mppc = readyaml.GetMppcPosX();
+    std::vector<double> pos_Y_mppc = readyaml.GetMppcPosY();
+    std::vector<double> pos_Z_mppc = readyaml.GetMppcPosZ();
+    std::vector<double> rot_Z_mppc = readyaml.GetMppcZRot();
+
+    int NumMppc = pos_X_mppc.size();
+    std::cout << "Number of MPPC = " << NumMppc << std::endl;
+    
+    std::cout << "test 1" << std::endl;
+    Ch2Pos channel2position = Ch2Pos(readyaml);
+    std::cout << "Vector3D (100,0) = " << channel2position.GetChPos3D(100,0).x << std::endl;
+    std::cout << "test 2" << std::endl;
     
     double xmin = -5.0;
     double xmax = 5.0;
@@ -291,8 +314,6 @@ int main(int argc, char** argv){
     double yD = 0.0;
     double zD = 0.0;
 
-
-
     func -> SetParameter(0, xE);
     func -> SetParameter(1, yE);
     func -> SetParameter(2, zE);
@@ -316,12 +337,14 @@ int main(int argc, char** argv){
     int nhit = 0;
     std::vector<Double_t>* qeff = 0;
     std::vector<Double_t>* radius = 0;
+    std::vector<Double_t>* distanceO2D = 0;
     std::vector<Double_t>* xP = 0;
     std::vector<Double_t>* yP = 0;
     std::vector<Double_t>* minval = 0;
     std::vector<Double_t>* thetaCh = 0;
     outTree -> Branch("qeff", &qeff);
     outTree -> Branch("radius", &radius);
+    outTree -> Branch("distanceO2D", &distanceO2D);
     outTree -> Branch("xP", &xP);
     outTree -> Branch("yP", &yP);
     outTree -> Branch("minval", &minval);
@@ -346,6 +369,8 @@ int main(int argc, char** argv){
     double x2, y2, z2;
     double s1;
 
+    Vector3D detec2center;
+
     for(Int_t j=0; j<inputTree->GetEntries(); j++){
     //for(Int_t j=0; j<1; j++){
         inputTree -> GetEntry(j);
@@ -354,6 +379,7 @@ int main(int argc, char** argv){
 
         qeff -> assign(nhit, -2222.0);
         radius -> assign(nhit, -2222.0);
+        distanceO2D -> assign(nhit, -2222.0);
         xP -> assign(nhit, -2222.0);
         yP -> assign(nhit, -2222.0);
         minval -> assign(nhit, -2222.0);
@@ -401,7 +427,10 @@ int main(int argc, char** argv){
                 //minval->at(i) = func->Eval(x_minimum, y_minimum);
                 
                 radius->at(i) = std::sqrt(std::pow(xD-detec_centerX,2.0) + std::pow(yD-detec_centerY,2.0));
-    
+                
+                detec2center = Vector3D(xD,yD,zD) - channel2position.GetChPos3D(parentIdVD3->at(i), hitChVD3->at(i));
+                distanceO2D->at(i) = detec2center.norm();
+
                 if(printVal==1){
                     std::cout << "xE = " << func->GetParameter(0) << " +/- " << func->GetParError(0) << std::endl;
                     std::cout << "yE = " << func->GetParameter(1) << " +/- " << func->GetParError(1) << std::endl;
@@ -409,6 +438,9 @@ int main(int argc, char** argv){
                     std::cout << "xD = " << func->GetParameter(12) << std::endl;
                     std::cout << "yD = " << func->GetParameter(13) << std::endl;
                     std::cout << "zD = " << func->GetParameter(14) << std::endl;
+                    std::cout << "xD = " << channel2position.GetChPosX(parentIdVD3->at(i), hitChVD3->at(i)) << std::endl;
+                    std::cout << "yD = " << channel2position.GetChPosY(parentIdVD3->at(i), hitChVD3->at(i)) << std::endl;
+                    std::cout << "zD = " << channel2position.GetChPosZ(parentIdVD3->at(i), hitChVD3->at(i)) << std::endl;
                     std::cout << "========================" << std::endl;
                 }
                 

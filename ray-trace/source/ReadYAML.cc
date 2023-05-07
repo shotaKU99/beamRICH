@@ -58,6 +58,10 @@ configuration_t ReadYAML::GetConfigration(){
     configuration.beam.z.center = config[settingname]["Beam"]["z"]["center"].as<double>();
     configuration.beam.z.width = config[settingname]["Beam"]["z"]["width"].as<double>();
 
+    configuration.detector.size.x = config[settingname]["Detector"]["size"]["x"].as<double>();
+    configuration.detector.size.y = config[settingname]["Detector"]["size"]["y"].as<double>();
+    configuration.detector.size.z = config[settingname]["Detector"]["size"]["z"].as<double>();
+
     configuration.detector.center.x = config[settingname]["Detector"]["center"]["x"].as<double>();
     configuration.detector.center.y = config[settingname]["Detector"]["center"]["y"].as<double>();
     configuration.detector.center.z = config[settingname]["Detector"]["center"]["z"].as<double>();
@@ -77,6 +81,29 @@ configuration_t ReadYAML::GetConfigration(){
     configuration.radiator.size.x = config[settingname]["Radiator"]["size"]["x"].as<double>();
     configuration.radiator.size.y = config[settingname]["Radiator"]["size"]["y"].as<double>();
     configuration.radiator.size.z = config[settingname]["Radiator"]["size"]["z"].as<double>();
+
+    std::cout << "test readyaml1" << std::endl;
+    auto configurationInfo_mppc_pos = config[settingname]["MPPC"];
+    Number_MPPC = configurationInfo_mppc_pos.size();
+    std::cout << "test readyaml2" << std::endl;
+
+    std::cout << "Number of MPPC = " << Number_MPPC << std::endl;
+
+    mppc_pos_x = std::vector<double>(Number_MPPC, -2222.0);
+    mppc_pos_y = std::vector<double>(Number_MPPC, -2222.0);
+    mppc_pos_z = std::vector<double>(Number_MPPC, -2222.0);
+    mppc_zrot = std::vector<double>(Number_MPPC, -2222.0);
+    mppc_darkcurrent = std::vector<double>(Number_MPPC, -2222.0);
+    
+    for(int i=0; i<Number_MPPC; i++){
+        mppc_pos_x.at(i) = configurationInfo_mppc_pos[std::to_string(i)]["x"].as<double>();
+        mppc_pos_y.at(i) = configurationInfo_mppc_pos[std::to_string(i)]["y"].as<double>();
+        mppc_pos_z.at(i) = configurationInfo_mppc_pos[std::to_string(i)]["z"].as<double>();
+        mppc_zrot.at(i) = configurationInfo_mppc_pos[std::to_string(i)]["zrot"].as<double>();
+        mppc_darkcurrent.at(i) = configurationInfo_mppc_pos[std::to_string(i)]["darkcurrent"].as<double>();
+    }    
+
+
 
     return configuration;
 }
