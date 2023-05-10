@@ -119,8 +119,8 @@ Vector3D Vector3D::rotateX(double angleX) {
 }
 
 Vector3D Vector3D::rotateY(double angleY) {
-    return Vector3D(x * std::cos(angleY) - z * std::sin(angleY), y,
-                    x * std::sin(angleY) + z * std::cos(angleY));
+    return Vector3D(x * std::cos(angleY) + z * std::sin(angleY), y,
+                    - x * std::sin(angleY) + z * std::cos(angleY));
 }
 
 Vector3D Vector3D::rotateZ(double angleZ) {

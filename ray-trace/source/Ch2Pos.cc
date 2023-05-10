@@ -15,9 +15,9 @@ Ch2Pos::Ch2Pos(ReadYAML readyaml) {
     double detec_rotangleY = configuration.detector.rotangle.y;  // deg
     double detec_rotangleZ = configuration.detector.rotangle.z;  // deg
 
-    std::vector<double> PosX_Mppc = readyaml.GetMppcPosX();   // unit mm
-    std::vector<double> PosY_Mppc = readyaml.GetMppcPosY();   // unit mm
-    std::vector<double> PosZ_Mppc = readyaml.GetMppcPosZ();   // unit mm
+    std::vector<double> PosX_Mppc = readyaml.GetMppcPosX();   // unit cm
+    std::vector<double> PosY_Mppc = readyaml.GetMppcPosY();   // unit cm
+    std::vector<double> PosZ_Mppc = readyaml.GetMppcPosZ();   // unit cm
     std::vector<double> rot_Z_mppc = readyaml.GetMppcZRot();  // unit deg
 
     int NumMppc = PosX_Mppc.size();
@@ -108,6 +108,7 @@ Ch2Pos::Ch2Pos(ReadYAML readyaml) {
             gZMPPC2Ch = lChPosZ.at(j);
             */
             gMPPC2Ch3D = lChPos3D.at(j).rotateZ(rot_Z_mppc.at(i)*deg2rad);
+            gMPPC2Ch3D = gMPPC2Ch3D.rotateY(-detec_rotangleY*deg2rad);
             //std::cout << "gMPPC2Ch3D = " << gMPPC2Ch3D.x << "," << gMPPC2Ch3D.y << ","<< gMPPC2Ch3D.z <<std::endl;
             //gChPos3D.at(i * ChNumOf1Mppc + j) = globalCenter + gBoard2MPPC3D + gMPPC2Ch3D;
             gChPos3D.push_back(globalCenter + gBoard2MPPC3D + gMPPC2Ch3D);
