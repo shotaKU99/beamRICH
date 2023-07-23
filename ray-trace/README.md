@@ -1,19 +1,6 @@
 # Ray traceing
 
 
-## 実行方法
-
-```bash
-$ mkdir build
-$ cd build
-/build$ cmake ../
-/build$ make -j4
-/build$ cd ..
-$ ./raytrace
-```
-
-ROOT のパスを通しておく必要がある。`thisroot.sh` を実行しておく。
-
 ## Yaml-cpp の使い方
 
 ### インストール方法
@@ -29,7 +16,7 @@ $ sudo make install
 ```
 
 共有ライブラリへのパスを通す
-`libyaml-cpp.so.0.X` が `/usr/local/lib` にある。
+`libyaml-cpp.so.0.X` が `/usr/local/bin` にある。
 
 `.bashrc` にパスを追加する
 ```

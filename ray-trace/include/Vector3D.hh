@@ -58,11 +58,11 @@ class Vector3D {
     Vector3D rotateY(double);
     Vector3D rotateZ(double);
     bool isZero();
-    static double dot(const Vector3D& left, const Vector3D& right);
-    static Vector3D cross(const Vector3D& left, const Vector3D& right);
+    static double dot(const Vector3D left, const Vector3D right);
+    static Vector3D cross(const Vector3D left, const Vector3D right);
 
-    static Vector3D reflect(const Vector3D& incident, const Vector3D& nperp);
-    static Vector3D refraction(const Vector3D& incident, const Vector3D& nperp, const double n1,
+    static Vector3D reflect(const Vector3D incident, const Vector3D nperp);
+    static Vector3D refraction(const Vector3D incident, const Vector3D nperp, const double n1,
                                const double n2);
 };
 

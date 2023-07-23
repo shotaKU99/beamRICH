@@ -16,8 +16,8 @@ private:
     const int nChRow = 4;  // y
     const int nChCol = 4;  // x
     int ChNumOf1Mppc = nChRow*nChCol;
-    int parentIdOffset = 100;
-    int ChannelOffset = 0;
+    int parentIdOffset;// = 100;
+    int ChannelOffset;// = 0;
     //std::vector<double> gChPosX;
     //std::vector<double> gChPosY;
     //std::vector<double> gChPosZ;

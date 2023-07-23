@@ -115,6 +115,7 @@ private:
     std::string settingname;
 
     int Number_MPPC;
+    int parentIdOffset, hitChOffset;
     std::vector<double> mppc_pos_x;// = std::vector<double>(50, -2222.0);
     std::vector<double> mppc_pos_y;// = std::vector<double>(50, -2222.0);
     std::vector<double> mppc_pos_z;// = std::vector<double>(50, -2222.0);
@@ -127,6 +128,8 @@ public:
     configuration_t GetConfigration();
 
     int GetNumMPPC() {return Number_MPPC;};
+    int GetParentIdOffset() {return parentIdOffset;};
+    int GetHitChOffset() {return hitChOffset;};
     std::vector<double> GetMppcPosX() {return mppc_pos_x;};
     std::vector<double> GetMppcPosY() {return mppc_pos_y;};
     std::vector<double> GetMppcPosZ() {return mppc_pos_z;};

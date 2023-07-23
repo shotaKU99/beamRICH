@@ -47,32 +47,32 @@ ROOT::Math::XYZVector Refract(ROOT::Math::XYZVector incident, ROOT::Math::XYZVec
 double distance_func(double* xx, double* par){
     double x = xx[0];
     double y = xx[1];
-    double z = 15.0;
+    double z = par[0];
     
     // Emission Point
-    double xE = par[0];
-    double yE = par[1];
-    double zE = par[2];
+    double xE = par[1];
+    double yE = par[2];
+    double zE = par[3];
 
     // Perpendicular of back of Radiator
-    double nx = par[3];
-    double ny = par[4];
-    double nz = par[5];
+    double nx = par[4];
+    double ny = par[5];
+    double nz = par[6];
 
     // Center & Radius of Spherical Mirror
-    double x0Mirror = par[6];
-    double y0Mirror = par[7];
-    double z0Mirror = par[8];
-    double Radius = par[9];
+    double x0Mirror = par[7];
+    double y0Mirror = par[8];
+    double z0Mirror = par[9];
+    double Radius = par[10];
 
     // Refractive Index
-    double n_Aero = par[10];
-    double n_Air = par[11];
+    double n_Aero = par[11];
+    double n_Air = par[12];
 
     // Detection Point
-    double xD = par[12];
-    double yD = par[13];
-    double zD = par[14];
+    double xD = par[13];
+    double yD = par[14];
+    double zD = par[15];
 
     /*
     ROOT::Math::XYZVector rP(x, y, z);
@@ -109,6 +109,17 @@ double distance_func(double* xx, double* par){
     Vector3D r0Mirror(x0Mirror, y0Mirror, z0Mirror);
     Vector3D rD(xD, yD, zD);
 
+    
+    //std::cout << "rP_norm = " << rP.normalized() << std::endl;
+    //std::cout << "rE = " << rE << std::endl;
+    //std::cout << "rE_norm = " << rE.normalized() << std::endl;
+    //std::cout << "rE = " << rE << std::endl;
+    //std::cout << "(rP-rE)_norm = " << (rP-rE).normalized() << std::endl;
+    //double costheta =  std::abs(Vector3D::dot((rP-rE).normalized(), Vector3D(0,0,1.0)));
+    //std::cout <<  "costheta = " << costheta << std::endl;
+    //double k = 1.0 - std::pow(1.021 / 1.000273, 2.0) * (1.0 - std::pow(costheta, 2.0));
+    //std::cout << "k = " << k << std::endl;
+    
     // Refraction
     Vector3D d_refraction = Vector3D::refraction(rP-rE, n_perp, n_Aero, n_Air);
 
@@ -180,12 +191,13 @@ int main(int argc, char** argv){
     TFile* inputFile = TFile::Open(inputfilename.c_str());
     TTree* inputTree = (TTree*)inputFile -> Get("tree");
 
-    std::vector<Double_t>* xVD1 = 0;
-    std::vector<Double_t>* yVD1 = 0;
-    std::vector<Double_t>* zVD1 = 0;
-    std::vector<Double_t>* xVD2 = 0;
-    std::vector<Double_t>* yVD2 = 0;
-    std::vector<Double_t>* zVD2 = 0;
+    std::vector<Double_t>* xVD1b = 0;
+    std::vector<Double_t>* yVD1b = 0;
+    std::vector<Double_t>* zVD1b = 0;
+    std::vector<Double_t>* xVD2b = 0;
+    std::vector<Double_t>* yVD2b = 0;
+    std::vector<Double_t>* zVD2b = 0;
+    std::vector<Double_t>* wlenVD3 = 0;
     std::vector<Double_t>* xVD3 = 0;
     std::vector<Double_t>* yVD3 = 0;
     std::vector<Double_t>* zVD3 = 0;
@@ -193,12 +205,13 @@ int main(int argc, char** argv){
     std::vector<Double_t>* hitChVD3 = 0;
     std::vector<Double_t>* parentIdVD3 = 0;
 
-    inputTree -> SetBranchAddress("xVD1", &xVD1);
-    inputTree -> SetBranchAddress("yVD1", &yVD1);
-    inputTree -> SetBranchAddress("zVD1", &zVD1);
-    inputTree -> SetBranchAddress("xVD2", &xVD2);
-    inputTree -> SetBranchAddress("yVD2", &yVD2);
-    inputTree -> SetBranchAddress("zVD2", &zVD2);
+    inputTree -> SetBranchAddress("xVD1b", &xVD1b);
+    inputTree -> SetBranchAddress("yVD1b", &yVD1b);
+    inputTree -> SetBranchAddress("zVD1b", &zVD1b);
+    inputTree -> SetBranchAddress("xVD2b", &xVD2b);
+    inputTree -> SetBranchAddress("yVD2b", &yVD2b);
+    inputTree -> SetBranchAddress("zVD2b", &zVD2b);
+    inputTree -> SetBranchAddress("wlenVD3", &wlenVD3);
     inputTree -> SetBranchAddress("xVD3", &xVD3);
     inputTree -> SetBranchAddress("yVD3", &yVD3);
     inputTree -> SetBranchAddress("zVD3", &zVD3);
@@ -279,25 +292,27 @@ int main(int argc, char** argv){
     std::vector<double> rot_Z_mppc = readyaml.GetMppcZRot();
 
     int NumMppc = pos_X_mppc.size();
-    std::cout << "Number of MPPC = " << NumMppc << std::endl;
+    //std::cout << "Number of MPPC = " << NumMppc << std::endl;
     
-    std::cout << "test 1" << std::endl;
+    //std::cout << "test 1" << std::endl;
     Ch2Pos channel2position = Ch2Pos(readyaml);
-    std::cout << "Vector3D (100,0) = " << channel2position.GetChPos3D(100,0).x << std::endl;
-    std::cout << "test 2" << std::endl;
+    //std::cout << "Vector3D (100,0) = " << channel2position.GetChPos3D(100,0).x << std::endl;
+    //std::cout << "test 2" << std::endl;
     
     double xmin = -5.0;
     double xmax = 5.0;
     double ymin = -5.0;
     double ymax = 5.0;
 
-    TF2* func = new TF2("func", distance_func, xmin, xmax, ymin, ymax, 15, 2);
+    TF2* func = new TF2("func", distance_func, xmin, xmax, ymin, ymax, 16, 2);
     //func->SetNpx(100);
     //func->SetNpy(100);
 
+    double zP = radiator_centerZ + radiator_sizeZ/2.0;
     double xE = 0.0; //configuration.emit.x;
     double yE = 0.0; //configuration.emit.y;
-    double zE = radiator_centerZ; //expinfo.emit.z;
+    double zE = radiator_centerZ + radiator_sizeZ/2.0 - 1.5; //expinfo.emit.z;
+    //std::cout << radiator_centerZ + radiator_sizeZ/2.0 << std::endl;
     double nx = expinfo.n_perp.x;   
     double ny = expinfo.n_perp.y;
     double nz = expinfo.n_perp.z;
@@ -314,53 +329,72 @@ int main(int argc, char** argv){
     double yD = 0.0;
     double zD = 0.0;
 
-    func -> SetParameter(0, xE);
-    func -> SetParameter(1, yE);
-    func -> SetParameter(2, zE);
-    func -> SetParameter(3, nx);
-    func -> SetParameter(4, ny);
-    func -> SetParameter(5, nz);
-    func -> SetParameter(6, x0Mirror);
-    func -> SetParameter(7, y0Mirror);
-    func -> SetParameter(8, z0Mirror);
-    func -> SetParameter(9, Radius);
-    func -> SetParameter(10, n_Aero);
-    func -> SetParameter(11, n_Air);
-    func -> SetParameter(12, xD);
-    func -> SetParameter(13, yD);
-    func -> SetParameter(14, zD);
+    func -> SetParameter(0, zP);
+    func -> SetParameter(1, xE);
+    func -> SetParameter(2, yE);
+    func -> SetParameter(3, zE);
+    func -> SetParameter(4, nx);
+    func -> SetParameter(5, ny);
+    func -> SetParameter(6, nz);
+    func -> SetParameter(7, x0Mirror);
+    func -> SetParameter(8, y0Mirror);
+    func -> SetParameter(9, z0Mirror);
+    func -> SetParameter(10, Radius);
+    func -> SetParameter(11, n_Aero);
+    func -> SetParameter(12, n_Air);
+    func -> SetParameter(13, xD);
+    func -> SetParameter(14, yD);
+    func -> SetParameter(15, zD);
 
     const char* outFile_name = expinfo.file.output_file.c_str();
     TFile* outFile = new TFile(outFile_name, "recreate");
     TTree* outTree = new TTree("tree", "tree");
 
     int nhit = 0;
+    std::vector<Double_t>* wlen = 0;
     std::vector<Double_t>* qeff = 0;
     std::vector<Double_t>* radius = 0;
     std::vector<Double_t>* distanceO2D = 0;
+    std::vector<Double_t>* xVD = 0;
+    std::vector<Double_t>* yVD = 0;
     std::vector<Double_t>* xP = 0;
     std::vector<Double_t>* yP = 0;
     std::vector<Double_t>* minval = 0;
     std::vector<Double_t>* thetaCh = 0;
+    std::vector<Double_t>* xP2 = 0;
+    std::vector<Double_t>* yP2 = 0;
+    std::vector<Double_t>* minval2 = 0;
+    std::vector<Double_t>* thetaCh2 = 0;
+    outTree -> Branch("wlen", &wlen);
     outTree -> Branch("qeff", &qeff);
     outTree -> Branch("radius", &radius);
     outTree -> Branch("distanceO2D", &distanceO2D);
+    outTree -> Branch("xVD", &xVD);
+    outTree -> Branch("yVD", &yVD);
     outTree -> Branch("xP", &xP);
     outTree -> Branch("yP", &yP);
     outTree -> Branch("minval", &minval);
     outTree -> Branch("thetaCh", &thetaCh);
+    outTree -> Branch("xP2", &xP2);
+    outTree -> Branch("yP2", &yP2);
+    outTree -> Branch("minval2", &minval2);
+    outTree -> Branch("thetaCh2", &thetaCh2);
 
 
     double x_minimum = 0.0;
     double y_minimum = 0.0;
+    double x_minimum2 = 0.0;
+    double y_minimum2 = 0.0;
     int printVal = 0;
     ROOT::Math::MinimizerOptions::SetDefaultTolerance(1e-2);
     ROOT::Math::MinimizerOptions::SetDefaultPrintLevel(0);
 
     int nhit_total = 0;
     int nhit_overThreshold = 0;
+    int nhit_overThreshold2 = 0;
     double minval_threshold = 0.001;
     double minimum_value = 0.0;
+    double minimum_value2 = 0.0;
 
     clock_t start_time = clock();
 
@@ -368,8 +402,8 @@ int main(int argc, char** argv){
     double x1, y1, z1;
     double x2, y2, z2;
     double s1;
-
-    Vector3D detec2center;
+    int nsize0=0;
+    Vector3D detec2center, detectionPoint;
 
     for(Int_t j=0; j<inputTree->GetEntries(); j++){
     //for(Int_t j=0; j<1; j++){
@@ -377,43 +411,56 @@ int main(int argc, char** argv){
         nhit = xVD3 -> size();
         nhit_total += nhit;
 
+        wlen -> assign(nhit, -2222.0);
         qeff -> assign(nhit, -2222.0);
         radius -> assign(nhit, -2222.0);
         distanceO2D -> assign(nhit, -2222.0);
+        xVD -> assign(nhit, -2222.0);
+        yVD -> assign(nhit, -2222.0);
         xP -> assign(nhit, -2222.0);
         yP -> assign(nhit, -2222.0);
         minval -> assign(nhit, -2222.0);
         thetaCh -> assign(nhit, -2222.0);
+        xP2 -> assign(nhit, -2222.0);
+        yP2 -> assign(nhit, -2222.0);
+        minval2 -> assign(nhit, -2222.0);
+        thetaCh2 -> assign(nhit, -2222.0);
         if(j%100==0) std::cout << "Vector Size (of " << j << " Event) = " << nhit << std::endl;
 
         // Tracking
-        if(xVD1->size()>0 && xVD2->size()>0){
-            x1 = xVD1->at(0);
-            y1 = yVD1->at(0);
-            z1 = zVD1->at(0);
-            x2 = xVD2->at(0);
-            y2 = yVD2->at(0);
-            z2 = zVD2->at(0);
-    
-            s1 = (zE-z1)/(z2-z1);
-    
-            xE = x1 + s1*(x2-x1);
-            yE = y1 + s1*(y2-y1);
-            
-            func -> SetParameter(0, xE);
-            func -> SetParameter(1, yE);
+        if(xVD1b->size()>0 && xVD2b->size()>0){
+
     
             for(Int_t i=0; i<nhit; i++){
             //for(Int_t i=0; i<10; i++){
-    
+                // tracking
+                x1 = xVD1b->at(0);//0.0; //xVD1->at(0);
+                y1 = yVD1b->at(0);//0.0; //yVD1->at(0);
+                z1 = zVD1b->at(0);//-10.0; //zVD1->at(0);
+                x2 = xVD2b->at(0);//0.0; //xVD2->at(0);
+                y2 = yVD2b->at(0);//0.0; //yVD2->at(0);
+                z2 = zVD2b->at(0);//150.0; //zVD2->at(0);
+
+                s1 = (zE-z1)/(z2-z1);
+
+                xE = x1 + s1*(x2-x1);
+                yE = y1 + s1*(y2-y1);
+
+                func -> SetParameter(1, xE);
+                func -> SetParameter(2, yE);  
+
                 qeff->at(i) = qeffVD3->at(i);
+                wlen->at(i) = wlenVD3->at(i);
                 xD = xVD3->at(i);
                 yD = yVD3->at(i);
                 zD = zVD3->at(i);
-    
-                func -> SetParameter(12, xD);
-                func -> SetParameter(13, yD);
-                func -> SetParameter(14, zD);           
+        
+                xVD->at(i) = xD;
+                yVD->at(i) = yD;
+
+                func -> SetParameter(13, xD);
+                func -> SetParameter(14, yD);
+                func -> SetParameter(15, zD);           
                 
                 minimum_value = func->GetMinimumXY(x_minimum, y_minimum);
                 minval->at(i) = minimum_value;
@@ -427,9 +474,49 @@ int main(int argc, char** argv){
                 //minval->at(i) = func->Eval(x_minimum, y_minimum);
                 
                 radius->at(i) = std::sqrt(std::pow(xD-detec_centerX,2.0) + std::pow(yD-detec_centerY,2.0));
-                
-                detec2center = Vector3D(xD,yD,zD) - channel2position.GetChPos3D(parentIdVD3->at(i), hitChVD3->at(i));
+
+                //std::cout << "Minimum: f(" << xs[0] << "," << xs[1] << "): " << min->MinValue()  << std::endl;
+                Vector3D emit(x_minimum-xE, y_minimum-yE, zP - zE);
+                Vector3D nbeam(x2-x1, y2-y1, z2-z1);
+                thetaCh->at(i) = std::acos(Vector3D::dot(emit, nbeam.normalized())/emit.norm());
+
+                detectionPoint = channel2position.GetChPos3D(parentIdVD3->at(i), hitChVD3->at(i));
+                detec2center = Vector3D(xD,yD,zD) - detectionPoint;
                 distanceO2D->at(i) = detec2center.norm();
+
+
+                // Include all error
+
+                x1 = 0.0; //xVD1b->at(0);
+                y1 = 0.0; //yVD1b->at(0);
+                z1 = -50.0; //zVD1b->at(0);
+                x2 = 0.0; //xVD2b->at(0);
+                y2 = 0.0; //yVD2b->at(0);
+                z2 = 150.0; //zVD2b->at(0);
+
+                s1 = (zE-z1)/(z2-z1);
+
+                xE = x1 + s1*(x2-x1);
+                yE = y1 + s1*(y2-y1);
+
+                func -> SetParameter(1, xE);
+                func -> SetParameter(2, yE);
+
+                func -> SetParameter(13, detectionPoint.x);
+                func -> SetParameter(14, detectionPoint.y);
+                func -> SetParameter(15, detectionPoint.z);           
+                
+                minimum_value2 = func->GetMinimumXY(x_minimum2, y_minimum2);
+                minval2->at(i) = minimum_value2;
+                if(minimum_value2>minval_threshold){
+                    nhit_overThreshold2++;
+                }                
+                xP2->at(i) = x_minimum2;
+                yP2->at(i) = y_minimum2;
+
+                Vector3D emit2(x_minimum2-xE, y_minimum2-yE, zP - zE);
+                Vector3D nbeam2(x2-x1, y2-y1, z2-z1);
+                thetaCh2->at(i) = std::acos(Vector3D::dot(emit2, nbeam2.normalized())/emit2.norm());
 
                 if(printVal==1){
                     std::cout << "xE = " << func->GetParameter(0) << " +/- " << func->GetParError(0) << std::endl;
@@ -444,13 +531,13 @@ int main(int argc, char** argv){
                     std::cout << "========================" << std::endl;
                 }
                 
-                //std::cout << "Minimum: f(" << xs[0] << "," << xs[1] << "): " << min->MinValue()  << std::endl;
-                Vector3D emit(x_minimum-xE, y_minimum-yE, zE+radiator_sizeZ/2.0 - zE);
-                Vector3D nbeam(x2-x1, y2-y1, z2-z1);
-                thetaCh->at(i) = std::acos(Vector3D::dot(emit, nbeam.normalized())/emit.norm());
+
     
             }
             outTree -> Fill();
+        }
+        else{
+            nsize0++;
         }
     }
     clock_t end_time = clock();
@@ -469,6 +556,9 @@ int main(int argc, char** argv){
     std::cout << "Total Hit Number : " << nhit_total << std::endl;
     std::cout << "Hit Number over threshold (= " << minval_threshold << ") : " << nhit_overThreshold << std::endl;
     std::cout << "Ratio of over threshold to total : " << 100.0*nhit_overThreshold/nhit_total << " %" << std::endl;
+    std::cout << "Hit Number over threshold (= " << minval_threshold << ") for Pixel: " << nhit_overThreshold2 << std::endl;
+    std::cout << "Ratio of over threshold to total for Pixel : " << 100.0*nhit_overThreshold2/nhit_total << " %" << std::endl;
+    std::cout << "Beam Particle not detected : " << nsize0 << std::endl;
     std::cout << "Calculation time : " << (double)(end_time-start_time)/CLOCKS_PER_SEC << " sec" << std::endl;
 
     std::cout << "------------ Analysis Info ------------" << std::endl;

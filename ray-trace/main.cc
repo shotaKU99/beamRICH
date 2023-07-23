@@ -211,12 +211,12 @@ int main(int argc, char** argv){
     ROOT::Math::Functor func(&distance_func, 18);
     min->SetFunction(func);
     min->SetVariable(0, "x", variable[0], step[0]);
-    min->SetVariableInitialRange(0, -5.0, 5.0);
-    min->SetVariableLimits(0, -10.0, 10.0);
+    //min->SetVariableInitialRange(0, -5.0, 5.0);
+    min->SetVariableLimits(0, -5.0, 5.0);
 
     min->SetVariable(1, "y", variable[1], step[1]);
-    min->SetVariableInitialRange(1, -5.0, 5.0);
-    min->SetVariableLimits(1, -10.0, 10.0);
+    //min->SetVariableInitialRange(1, -5.0, 5.0);
+    min->SetVariableLimits(1, -5.0, 5.0);
 
     double zP = 45.0;
     min->SetFixedVariable(2, "z", zP);

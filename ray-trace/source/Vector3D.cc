@@ -128,32 +128,34 @@ Vector3D Vector3D::rotateZ(double angleZ) {
                     x * std::sin(angleZ) + y * std::cos(angleZ), z);
 }
 
-bool Vector3D::isZero() { return (x == 0 && y == 0 & z == 0); }
+bool Vector3D::isZero() { return (x == 0 && y == 0 && z == 0); }
 
-double Vector3D::dot(const Vector3D& left, const Vector3D& right) {
+double Vector3D::dot(const Vector3D left, const Vector3D right) {
     return left.x * right.x + left.y * right.y + left.z * right.z;
 }
 
-Vector3D Vector3D::cross(const Vector3D& left, const Vector3D& right) {
+Vector3D Vector3D::cross(const Vector3D left, const Vector3D right) {
     return Vector3D(left.y * right.z - left.z * right.y, left.z * right.x - left.x * right.z,
                     left.x * right.y - left.y * right.x);
 }
 
-Vector3D Vector3D::reflect(const Vector3D& incident, const Vector3D& nperp) {
+Vector3D Vector3D::reflect(const Vector3D incident, const Vector3D nperp) {
     Vector3D inci_norm = incident.normalized();
     Vector3D nperp_norm = nperp.normalized();
 
     return (inci_norm - 2.0 * dot(inci_norm, nperp_norm) * nperp_norm);
 }
 
-Vector3D Vector3D::refraction(const Vector3D& incident, const Vector3D& nperp, const double n1,
+Vector3D Vector3D::refraction(const Vector3D incident, const Vector3D nperp, const double n1,
                               const double n2) {
     Vector3D inci_norm = incident.normalized();
     Vector3D nperp_norm = nperp.normalized();
     double costheta = std::abs(dot(inci_norm, nperp_norm));
     double k = 1.0 - std::pow(n1 / n2, 2.0) * (1.0 - std::pow(costheta, 2.0));
     if (k < 0.0) {
-        std::cout << "Refraction error occured" << std::endl;
+        //std::cout << "Refraction error occured" << std::endl;
+        //std::cout << "costheta = " << costheta << std::endl;
+        //std::cout << "k = " << k << std::endl;
         return Vector3D(0.0, 0.0, 1.0);
     } else {
         return n1 * inci_norm / n2 + (std::sqrt(k) - n1 * costheta / n2) * nperp_norm;

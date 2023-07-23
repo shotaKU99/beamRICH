@@ -1,7 +1,9 @@
 config:
   "geant4_sim1":
-    #input_file: ../root/AngleReconstruction_K.root
-    output_file: ../root/mirrorAngle_test_pro.root
+    output_file: ../root2/cherenkovAngle_elph_e10_2.root
+    #output_file: ../root2/Kaon_300Event_50cm_4.root
+    #output_file: ../root2/Pion_30000Event_50cm_3.root
+    #output_file: ../root2/Proton_300Event_50cm_3.root
     #Emit:
     #  x: 0.0
     #  y: 0.0

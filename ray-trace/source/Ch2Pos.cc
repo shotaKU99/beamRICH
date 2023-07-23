@@ -15,6 +15,8 @@ Ch2Pos::Ch2Pos(ReadYAML readyaml) {
     double detec_rotangleY = configuration.detector.rotangle.y;  // deg
     double detec_rotangleZ = configuration.detector.rotangle.z;  // deg
 
+    parentIdOffset = readyaml.GetParentIdOffset();
+    ChannelOffset = readyaml.GetHitChOffset();
     std::vector<double> PosX_Mppc = readyaml.GetMppcPosX();   // unit cm
     std::vector<double> PosY_Mppc = readyaml.GetMppcPosY();   // unit cm
     std::vector<double> PosZ_Mppc = readyaml.GetMppcPosZ();   // unit cm

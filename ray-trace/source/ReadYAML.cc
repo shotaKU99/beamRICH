@@ -82,12 +82,14 @@ configuration_t ReadYAML::GetConfigration(){
     configuration.radiator.size.y = config[settingname]["Radiator"]["size"]["y"].as<double>();
     configuration.radiator.size.z = config[settingname]["Radiator"]["size"]["z"].as<double>();
 
-    std::cout << "test readyaml1" << std::endl;
-    auto configurationInfo_mppc_pos = config[settingname]["MPPC"];
+    //std::cout << "test readyaml1" << std::endl;
+    parentIdOffset = config[settingname]["PhotonDetector"]["parentIdOffset"].as<int>();
+    hitChOffset = config[settingname]["PhotonDetector"]["hitChOffset"].as<int>();
+    auto configurationInfo_mppc_pos = config[settingname]["PhotonDetector"]["MPPC"];
     Number_MPPC = configurationInfo_mppc_pos.size();
-    std::cout << "test readyaml2" << std::endl;
+    //std::cout << "test readyaml2" << std::endl;
 
-    std::cout << "Number of MPPC = " << Number_MPPC << std::endl;
+    //std::cout << "Number of MPPC = " << Number_MPPC << std::endl;
 
     mppc_pos_x = std::vector<double>(Number_MPPC, -2222.0);
     mppc_pos_y = std::vector<double>(Number_MPPC, -2222.0);
