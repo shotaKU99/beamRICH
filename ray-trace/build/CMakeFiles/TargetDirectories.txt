@@ -1,3 +1,0 @@
-/mnt/c/Users/shota/OneDrive/Desktop/nh/e50/beam-RICH/ray-trace/build/CMakeFiles/rebuild_cache.dir
-/mnt/c/Users/shota/OneDrive/Desktop/nh/e50/beam-RICH/ray-trace/build/CMakeFiles/edit_cache.dir
-/mnt/c/Users/shota/OneDrive/Desktop/nh/e50/beam-RICH/ray-trace/build/CMakeFiles/raytrace.dir
