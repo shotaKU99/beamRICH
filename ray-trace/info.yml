@@ -1,6 +1,10 @@
 config:
   "geant4_sim1":
-    output_file: ../root2/cherenkovAngle_elph_e10_2.root
+    #output_file: ../root2/cherenkovAngle_elph_e14.root
+    #output_file: ../root2/cherenkovAngle_elph_setup_mirror_rotX_0.0deg.root
+    #output_file: ../root2/cherenkovAngle_elph_setup_mirror_rotX_0.1deg_3.root
+    output_file: ../root2/cherenkovAngle_elph_beamprofilemonitor_e_1.0_6_2.root
+    #output_file: ../root2/cherenkovAngle_nhitchVD3_test_pi.root
     #output_file: ../root2/Kaon_300Event_50cm_4.root
     #output_file: ../root2/Pion_30000Event_50cm_3.root
     #output_file: ../root2/Proton_300Event_50cm_3.root
@@ -18,5 +22,7 @@ config:
     #  z0: -150.0
     #  Radius: 300.0
     RIndex:
-      Aero: 1.021
+      a0_Aero: 0.0395005
+      wlen0_Aero: 99.4044
+      wlength_Aero: 460.0
       Air: 1.000273 

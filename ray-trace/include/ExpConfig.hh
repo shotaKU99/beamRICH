@@ -33,7 +33,9 @@ struct Mirror_t{
 */
 
 struct RIndex_t{
-    double Aero;
+    double a0_Aero;
+    double wlen0_Aero;
+    double wlength_Aero;
     double Air;
 };
 

@@ -82,6 +82,15 @@ configuration_t ReadYAML::GetConfigration(){
     configuration.radiator.size.y = config[settingname]["Radiator"]["size"]["y"].as<double>();
     configuration.radiator.size.z = config[settingname]["Radiator"]["size"]["z"].as<double>();
 
+    configuration.uptrig.center.x = config[settingname]["TriggerScinti"]["upstream"]["center"]["x"].as<double>();
+    configuration.uptrig.center.y = config[settingname]["TriggerScinti"]["upstream"]["center"]["y"].as<double>();
+    configuration.uptrig.center.z = config[settingname]["TriggerScinti"]["upstream"]["center"]["z"].as<double>();
+
+    configuration.downtrig.center.x = config[settingname]["TriggerScinti"]["downstream"]["center"]["x"].as<double>();
+    configuration.downtrig.center.y = config[settingname]["TriggerScinti"]["downstream"]["center"]["y"].as<double>();
+    configuration.downtrig.center.z = config[settingname]["TriggerScinti"]["downstream"]["center"]["z"].as<double>();
+   
+   
     //std::cout << "test readyaml1" << std::endl;
     parentIdOffset = config[settingname]["PhotonDetector"]["parentIdOffset"].as<int>();
     hitChOffset = config[settingname]["PhotonDetector"]["hitChOffset"].as<int>();

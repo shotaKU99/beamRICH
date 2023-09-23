@@ -44,7 +44,9 @@ construction_t ExpConfig::GetConstruction(std::string settingname){
         //construction.mirror.z0 = config["config"][settingname]["Mirror"]["z0"].as<double>();
         //construction.mirror.Radius = config["config"][settingname]["Mirror"]["Radius"].as<double>();
 
-        construction.rindex.Aero = config["config"][settingname]["RIndex"]["Aero"].as<double>();
+        construction.rindex.a0_Aero = config["config"][settingname]["RIndex"]["a0_Aero"].as<double>();
+        construction.rindex.wlen0_Aero = config["config"][settingname]["RIndex"]["wlen0_Aero"].as<double>();
+        construction.rindex.wlength_Aero = config["config"][settingname]["RIndex"]["wlength_Aero"].as<double>();
         construction.rindex.Air = config["config"][settingname]["RIndex"]["Air"].as<double>();
     }
     return construction;

@@ -17,6 +17,7 @@
 #include "TTree.h"
 #include "Rtypes.h"
 #include "TF2.h"
+#include "TF1.h"
 //#include "TCanvas.h"
 
 /*
@@ -142,6 +143,15 @@ double distance_func(double* xx, double* par){
     
 }
 
+double refractive_index(double* wlen, double* par) {
+    double wlength = wlen[0];  // nm
+    double a0 = par[0];
+    double wlength0 = par[1];  // nm
+
+    return std::sqrt(1 + a0 * std::pow(wlength, 2.0) /
+                             (std::pow(wlength, 2.0) - std::pow(wlength0, 2.0)));
+}
+
 int main(int argc, char** argv){
 
     /*std::string configfile = "./info.yml"; 
@@ -194,9 +204,9 @@ int main(int argc, char** argv){
     std::vector<Double_t>* xVD1b = 0;
     std::vector<Double_t>* yVD1b = 0;
     std::vector<Double_t>* zVD1b = 0;
-    std::vector<Double_t>* xVD2b = 0;
-    std::vector<Double_t>* yVD2b = 0;
-    std::vector<Double_t>* zVD2b = 0;
+    std::vector<Double_t>* xVD4b = 0;
+    std::vector<Double_t>* yVD4b = 0;
+    std::vector<Double_t>* zVD4b = 0;
     std::vector<Double_t>* wlenVD3 = 0;
     std::vector<Double_t>* xVD3 = 0;
     std::vector<Double_t>* yVD3 = 0;
@@ -204,13 +214,15 @@ int main(int argc, char** argv){
     std::vector<Double_t>* qeffVD3 = 0;
     std::vector<Double_t>* hitChVD3 = 0;
     std::vector<Double_t>* parentIdVD3 = 0;
+    std::vector<Double_t>* hitChXEdepVD4 = 0;
+    std::vector<Double_t>* hitChYEdepVD4 = 0;
 
     inputTree -> SetBranchAddress("xVD1b", &xVD1b);
     inputTree -> SetBranchAddress("yVD1b", &yVD1b);
     inputTree -> SetBranchAddress("zVD1b", &zVD1b);
-    inputTree -> SetBranchAddress("xVD2b", &xVD2b);
-    inputTree -> SetBranchAddress("yVD2b", &yVD2b);
-    inputTree -> SetBranchAddress("zVD2b", &zVD2b);
+    inputTree -> SetBranchAddress("xVD4b", &xVD4b);
+    inputTree -> SetBranchAddress("yVD4b", &yVD4b);
+    inputTree -> SetBranchAddress("zVD4b", &zVD4b);
     inputTree -> SetBranchAddress("wlenVD3", &wlenVD3);
     inputTree -> SetBranchAddress("xVD3", &xVD3);
     inputTree -> SetBranchAddress("yVD3", &yVD3);
@@ -218,6 +230,8 @@ int main(int argc, char** argv){
     inputTree -> SetBranchAddress("qeffVD3", &qeffVD3);
     inputTree -> SetBranchAddress("hitChVD3", &hitChVD3);
     inputTree -> SetBranchAddress("parentIdVD3", &parentIdVD3);
+    inputTree -> SetBranchAddress("hitChXEdepVD4", &hitChXEdepVD4);
+    inputTree -> SetBranchAddress("hitChYEdepVD4", &hitChYEdepVD4);
 
     /*    
     double xE = 0.0; //configuration.emit.x;
@@ -285,6 +299,15 @@ int main(int argc, char** argv){
     double radiator_sizeY = configuration.radiator.size.y;
     double radiator_sizeZ = configuration.radiator.size.z;
 
+    double upstream_trig_centerX = configuration.uptrig.center.x;
+    double upstream_trig_centerY = configuration.uptrig.center.y;
+    double upstream_trig_centerZ = configuration.uptrig.center.z;
+
+    double downstream_trig_centerX = configuration.downtrig.center.x;
+    double downstream_trig_centerY = configuration.downtrig.center.y;
+    double downstream_trig_centerZ = configuration.downtrig.center.z;
+
+
     int NumMPPC = readyaml.GetNumMPPC();
     std::vector<double> pos_X_mppc = readyaml.GetMppcPosX();
     std::vector<double> pos_Y_mppc = readyaml.GetMppcPosY();
@@ -316,12 +339,30 @@ int main(int argc, char** argv){
     double nx = expinfo.n_perp.x;   
     double ny = expinfo.n_perp.y;
     double nz = expinfo.n_perp.z;
+
+
+    Vector3D MirrorR(0.0, 0.0, mirror_radius); // Vector of center of rotation 
+    Vector3D MirrorR2O(0.0,0.0, -mirror_radius); // Vector from center of rotation to Mirror center
+    Vector3D rotMirrorR2O = MirrorR2O.rotateY(-mirror_rotangleY*TMath::Pi()/180.0).rotateX(mirror_rotangleX*TMath::Pi()/180.0);
+    //double x0Mirror = (MirrorR + rotMirrorR2O).x;
+    //double y0Mirror = (MirrorR + rotMirrorR2O).y;
+    //double z0Mirror = (MirrorR + rotMirrorR2O).z;
+    //std::cout << "Center of Mirror = " << (MirrorR+rotMirrorR2O) << std::endl;
     double x0Mirror = mirror_radius*std::sin(mirror_rotangleY*TMath::Pi()/180.0);//expinfo.mirror.x0;
     double y0Mirror = 0.0;//expinfo.mirror.y0;
     double z0Mirror = mirror_radius*(1.0-std::cos(mirror_rotangleY*TMath::Pi()/180.0));//expinfo.mirror.z0;
+    std::cout << "Center of Mirror = (" << x0Mirror << ", " << y0Mirror << ", " << z0Mirror << ")"<< std::endl;
+    
     double Radius = mirror_radius;//expinfo.mirror.Radius;
-    double n_Aero = expinfo.rindex.Aero;
+    double a0_Aero = expinfo.rindex.a0_Aero;
+    double wlen0_Aero = expinfo.rindex.wlen0_Aero;
+    double wlength_Aero = expinfo.rindex.wlength_Aero;
     double n_Air = expinfo.rindex.Air;
+
+    TF1* refractive_index_func = new TF1("refractive_index_func", refractive_index, 200, 900, 2);
+    refractive_index_func->SetParameters(a0_Aero, wlen0_Aero);
+    double n_Aero = refractive_index_func->Eval(wlength_Aero);
+
     //double xD = -29.7523;
     //double yD = 1.18987;
     //double zD = 0.12986;
@@ -398,9 +439,13 @@ int main(int argc, char** argv){
 
     clock_t start_time = clock();
 
+
+    double size_beamPM = 4.8; //cm
+    double size_1ChbeamPM = 0.3; //cm
     // Variables for Tracker 1,2
     double x1, y1, z1;
     double x2, y2, z2;
+    int hitChX, hitChY;
     double s1;
     int nsize0=0;
     Vector3D detec2center, detectionPoint;
@@ -428,18 +473,36 @@ int main(int argc, char** argv){
         if(j%100==0) std::cout << "Vector Size (of " << j << " Event) = " << nhit << std::endl;
 
         // Tracking
-        if(xVD1b->size()>0 && xVD2b->size()>0){
+        if(xVD1b->size()>0 && xVD4b->size()>0){
 
     
             for(Int_t i=0; i<nhit; i++){
             //for(Int_t i=0; i<10; i++){
                 // tracking
+                /*
                 x1 = xVD1b->at(0);//0.0; //xVD1->at(0);
                 y1 = yVD1b->at(0);//0.0; //yVD1->at(0);
                 z1 = zVD1b->at(0);//-10.0; //zVD1->at(0);
-                x2 = xVD2b->at(0);//0.0; //xVD2->at(0);
-                y2 = yVD2b->at(0);//0.0; //yVD2->at(0);
-                z2 = zVD2b->at(0);//150.0; //zVD2->at(0);
+                x2 = xVD4b->at(0);//0.0; //xVD2->at(0);
+                y2 = yVD4b->at(0);//0.0; //yVD2->at(0);
+                z2 = zVD4b->at(0);//150.0; //zVD2->at(0);
+
+                s1 = (zE-z1)/(z2-z1);
+
+                xE = x1 + s1*(x2-x1);
+                yE = y1 + s1*(y2-y1);
+                */
+
+                x1 = upstream_trig_centerX;//0.0; //xVD1b->at(0);
+                y1 = upstream_trig_centerY;//0.0; //yVD1b->at(0);
+                z1 = upstream_trig_centerZ;//-70.0; //zVD1b->at(0);
+                
+                hitChX = std::distance(hitChXEdepVD4->begin(), std::max_element(hitChXEdepVD4->begin(), hitChXEdepVD4->end()));
+                hitChY = std::distance(hitChYEdepVD4->begin(), std::max_element(hitChYEdepVD4->begin(), hitChYEdepVD4->end()));
+
+                x2 = downstream_trig_centerX -0.5*size_beamPM + 0.5*size_1ChbeamPM + hitChX*size_1ChbeamPM; //xVD2b->at(0);
+                y2 = downstream_trig_centerY -0.5*size_beamPM + 0.5*size_1ChbeamPM + hitChY*size_1ChbeamPM; //yVD2b->at(0);
+                z2 = downstream_trig_centerZ;//130.0; //zVD2b->at(0);
 
                 s1 = (zE-z1)/(z2-z1);
 
@@ -447,7 +510,7 @@ int main(int argc, char** argv){
                 yE = y1 + s1*(y2-y1);
 
                 func -> SetParameter(1, xE);
-                func -> SetParameter(2, yE);  
+                func -> SetParameter(2, yE);
 
                 qeff->at(i) = qeffVD3->at(i);
                 wlen->at(i) = wlenVD3->at(i);
@@ -486,24 +549,9 @@ int main(int argc, char** argv){
 
 
                 // Include all error
-
-                x1 = 0.0; //xVD1b->at(0);
-                y1 = 0.0; //yVD1b->at(0);
-                z1 = -50.0; //zVD1b->at(0);
-                x2 = 0.0; //xVD2b->at(0);
-                y2 = 0.0; //yVD2b->at(0);
-                z2 = 150.0; //zVD2b->at(0);
-
-                s1 = (zE-z1)/(z2-z1);
-
-                xE = x1 + s1*(x2-x1);
-                yE = y1 + s1*(y2-y1);
-
-                func -> SetParameter(1, xE);
-                func -> SetParameter(2, yE);
-
+                
                 func -> SetParameter(13, detectionPoint.x);
-                func -> SetParameter(14, detectionPoint.y);
+                func -> SetParameter(14, detectionPoint.y-0.1);
                 func -> SetParameter(15, detectionPoint.z);           
                 
                 minimum_value2 = func->GetMinimumXY(x_minimum2, y_minimum2);
@@ -530,8 +578,6 @@ int main(int argc, char** argv){
                     std::cout << "zD = " << channel2position.GetChPosZ(parentIdVD3->at(i), hitChVD3->at(i)) << std::endl;
                     std::cout << "========================" << std::endl;
                 }
-                
-
     
             }
             outTree -> Fill();

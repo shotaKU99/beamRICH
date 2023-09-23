@@ -95,6 +95,14 @@ struct Radiator_t
   BoxSize_t size;
 };
 
+struct UpTrig_t{
+  Center_t center;
+};
+
+struct DownTrig_t{
+  Center_t center;
+};
+
 struct configuration_t {
     //G4String setting_name;
     std::string setting_name;
@@ -103,6 +111,8 @@ struct configuration_t {
     Detector_t detector;
     Mirror_t mirror;
     Radiator_t radiator;
+    UpTrig_t uptrig;
+    DownTrig_t downtrig;
 };
 
 
