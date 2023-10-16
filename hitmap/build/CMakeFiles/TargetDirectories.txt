@@ -1,3 +1,0 @@
-/home/shota/hep/hitmap/build/CMakeFiles/rebuild_cache.dir
-/home/shota/hep/hitmap/build/CMakeFiles/edit_cache.dir
-/home/shota/hep/hitmap/build/CMakeFiles/hitmap.dir
