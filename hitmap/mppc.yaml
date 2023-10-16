@@ -1,0 +1,675 @@
+config:
+  "geant4_sim1": # for e 0.8 GeV/c
+    Detector:
+      parentIdOffset: 100
+      hitChOffset: 0
+      MPPC:
+        0: 
+          x: -1.45 # cm
+          y: 8.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        1: 
+          x: -0.12
+          y: 8.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        2: 
+          x: 0.15
+          y: 6.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        3: 
+          x: 1.48
+          y: 6.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        4: 
+          x: 1.15
+          y: 5.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        5: 
+          x: 2.48
+          y: 5.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        6: 
+          x: 1.85
+          y: 3.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        7: 
+          x: 3.18
+          y: 3.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        8: 
+          x: 2.35
+          y: 2.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        9: 
+          x: 3.68
+          y: 2.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        10: 
+          x: 2.65
+          y: 0.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        11: 
+          x: 3.98
+          y: 0.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        12: 
+          x: 2.65
+          y: -0.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        13: 
+          x: 3.98
+          y: -0.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        14: 
+          x: 2.35
+          y: -2.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        15: 
+          x: 3.68
+          y: -2.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        16: 
+          x: 1.85
+          y: -3.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        17: 
+          x: 3.18
+          y: -3.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        18: 
+          x: 1.15
+          y: -5.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        19: 
+          x: 2.48
+          y: -5.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        20: 
+          x: 0.15
+          y: -6.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        21: 
+          x: 1.48
+          y: -6.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        22: 
+          x: -1.45
+          y: -8.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        23: 
+          x: -0.12 # cm
+          y: -8.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+  "geant4_sim1_1": # for K 5.0 GeV/c
+    Detector:
+      parentIdOffset: 100
+      hitChOffset: 0
+      MPPC:
+        0: 
+          x: -4.05 # cm
+          y: 8.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        1: 
+          x: -2.72
+          y: 8.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        2: 
+          x: -1.95
+          y: 6.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        3: 
+          x: -0.62
+          y: 6.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        4: 
+          x: -0.55
+          y: 5.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        5: 
+          x: 0.78
+          y: 5.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        6: 
+          x: 0.45
+          y: 3.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        7: 
+          x: 1.78
+          y: 3.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        8: 
+          x: 1.05
+          y: 2.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        9: 
+          x: 2.38
+          y: 2.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        10: 
+          x: 1.25
+          y: 0.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        11: 
+          x: 2.58
+          y: 0.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        12: 
+          x: 1.25
+          y: -0.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        13: 
+          x: 2.58
+          y: -0.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        14: 
+          x: 1.05
+          y: -2.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        15: 
+          x: 2.38
+          y: -2.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        16: 
+          x: 0.45
+          y: -3.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        17: 
+          x: 1.78
+          y: -3.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        18: 
+          x: -0.55
+          y: -5.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        19: 
+          x: 0.78
+          y: -5.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        20: 
+          x: -1.95
+          y: -6.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        21: 
+          x: -0.62
+          y: -6.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        22: 
+          x: -4.05
+          y: -8.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        23: 
+          x: -2.72 # cm
+          y: -8.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+  "geant4_sim2": # for e 0.8 GeV/c 横置き 旧型
+    Detector:
+      parentIdOffset: 100
+      hitChOffset: 0
+      MPPC:
+        0: 
+          x: -1.68 # cm
+          y: 8.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        1: 
+          x: -0.35
+          y: 8.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        2: 
+          x: -0.38
+          y: 6.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        3: 
+          x: 0.95
+          y: 6.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        4: 
+          x: 0.62
+          y: 5.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        5: 
+          x: 1.95
+          y: 5.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        6: 
+          x: 1.12
+          y: 3.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        7: 
+          x: 2.45
+          y: 3.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        8: 
+          x: 1.52
+          y: 2.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        9: 
+          x: 2.85
+          y: 2.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        10: 
+          x: 1.72
+          y: 0.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        11: 
+          x: 3.05
+          y: 0.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        12: 
+          x: 1.72
+          y: -0.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        13: 
+          x: 3.05
+          y: -0.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        14: 
+          x: 1.52
+          y: -2.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        15: 
+          x: 2.85
+          y: -2.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        16: 
+          x: 1.12
+          y: -3.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        17: 
+          x: 2.45
+          y: -3.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        18: 
+          x: 0.62
+          y: -5.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        19: 
+          x: 1.95
+          y: -5.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        20: 
+          x: -0.38
+          y: -6.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        21: 
+          x: 0.95
+          y: -6.75
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        22: 
+          x: -1.68
+          y: -8.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+        23: 
+          x: -0.35 # cm
+          y: -8.25
+          z: 0.0
+          zrot: 0.0
+          darkcurrent: 0.5 # Mcps
+  "geant4_sim3": # for e 0.8 GeV/c (and K 8.5 GeV/c) 縦置き
+    Detector:
+      parentIdOffset: 100
+      hitChOffset: 0
+      MPPC:
+        0: 
+          x: -6.25 # cm
+          y: 10.65
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        1: 
+          x: -6.25
+          y: 9.35
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        2: 
+          x: -4.75
+          y: 10.45
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        3: 
+          x: -4.75
+          y: 9.15
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        4: 
+          x: -3.25
+          y: 10.05
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        5: 
+          x: -3.25
+          y: 8.75
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        6: 
+          x: -1.75
+          y: 9.25
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        7: 
+          x: -1.75
+          y: 7.95
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        8: 
+          x: -0.25
+          y: 8.05
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        9: 
+          x: -0.25
+          y: 6.75
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        10: 
+          x: 1.25
+          y: 6.65
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        11: 
+          x: 1.25
+          y: 5.35
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        12: 
+          x: 1.25
+          y: -5.35
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        13: 
+          x: 1.25
+          y: -6.65
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        14: 
+          x: -0.25
+          y: -6.75
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        15: 
+          x: -0.25
+          y: -8.05
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        16: 
+          x: -1.75
+          y: -7.95
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        17: 
+          x: -1.75
+          y: -9.25
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        18: 
+          x: -3.25
+          y: -8.75
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        19: 
+          x: -3.25
+          y: -10.05
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        20: 
+          x: -4.75
+          y: -9.15
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        21: 
+          x: -4.75
+          y: -10.45
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        22: 
+          x: -6.25
+          y: -9.35
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        23: 
+          x: -6.25 # cm
+          y: -10.65
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+  "geant4_sim4": # 前の配置(適当)
+    Detector:
+      parentIdOffset: 100
+      hitChOffset: 0
+      MPPC:
+        0: 
+          x: -6.25 # cm
+          y: 10.50
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        1: 
+          x: -6.25
+          y: 9.15
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        2: 
+          x: -4.80
+          y: 9.50
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        3: 
+          x: -4.80
+          y: 8.15
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        4: 
+          x: -3.35
+          y: 8.50
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        5: 
+          x: -3.35
+          y: 7.15
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        6: 
+          x: -1.90
+          y: 7.50
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        7: 
+          x: -1.90
+          y: 6.15
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        8: 
+          x: -0.45
+          y: 6.50
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        9: 
+          x: -0.45
+          y: 5.15
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        10: 
+          x: 1.00
+          y: 5.50
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        11: 
+          x: 1.00
+          y: 4.15
+          z: 0.0
+          zrot: 90.0
+          darkcurrent: 0.5 # Mcps
+        
