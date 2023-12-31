@@ -1,0 +1,27 @@
+config:
+  "geant4_sim1":
+    #output_file: ../root2/cherenkovAngle_elph_e14.root
+    #output_file: ../root2/cherenkovAngle_detectorplane_e40deg.root
+    output_file: ../root3/Log-likelihood_pi_5GeV_geoeff_3.root
+    #output_file: ../root2/Kaon_300Event_50cm_4.root
+    #output_file: ../root2/Pion_30000Event_50cm_3.root
+    #output_file: ../root2/Proton_300Event_50cm_3.root
+    #Emit:
+    #  x: 0.0
+    #  y: 0.0
+    #  z: 40.0
+    n_perp:
+      x: 0.0
+      y: 0.0
+      z: 1.0
+    #Mirror:
+    #  x0: 0.0
+    #  y0: 0.0
+    #  z0: -150.0
+    #  Radius: 300.0
+    RIndex:
+      a0_Aero: 0.0395005
+      wlen0_Aero: 99.4044
+      wlength_Aero: 460.0
+      Air: 1.000273 
+
